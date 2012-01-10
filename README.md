@@ -1,12 +1,16 @@
-# Brightbox::Nanoc::Extensions
+# Brightbox Nanoc Helpers
 
-TODO: Write a gem description
+[Brightbox][] have packaged up some extensions used in [nanoc][] sites in this gem.
+
+[Brightbox]: http://brightbox.com/
+[nanoc]: http://nanoc.stoneship.org/
+
 
 ## Installation
 
 Add this line to your application's Gemfile:
 
-    gem 'brightbox-nanoc-extensions'
+    gem 'brightbox-nanoc-helpers'
 
 And then execute:
 
@@ -14,11 +18,11 @@ And then execute:
 
 Or install it yourself as:
 
-    $ gem install brightbox-nanoc-extensions
+    $ gem install brightbox-nanoc-helpers
 
 ## Usage
 
-TODO: Write usage instructions here
+See each file in `lib/brightbox-nanoc-helpers` on what it does and how to use it.
 
 ## Contributing
 

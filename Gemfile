@@ -1,4 +1,4 @@
-source 'https://rubygems.org'
+source :rubygems
 
-# Specify your gem's dependencies in brightbox-nanoc-extensions.gemspec
+# Specify your gem's dependencies in brightbox-nanoc-helpers.gemspec
 gemspec
