@@ -28,6 +28,11 @@ module Brightbox
       module Blogging
         GenerateError = Class.new(RuntimeError)
 
+        # Make sure we include those modules we need to function
+        include ::Nanoc3::Helpers::Tagging
+        include ::Nanoc3::Helpers::Blogging
+        include Pagination
+
         # We're dealing with posts, not articles
         def posts
           sorted_articles

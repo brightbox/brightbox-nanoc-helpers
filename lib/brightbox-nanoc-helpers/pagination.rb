@@ -1,6 +1,8 @@
 module Brightbox
   module Nanoc3
     module Helpers
+      # Provides some helper methods to generate next/previous page links.
+      # Used by the Blogging module
       module Pagination
         # Generates the URL to the next page, given the # of the current page.
         # base_path should not include /page/x and should start & end with /
