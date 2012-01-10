@@ -25,6 +25,9 @@ module Brightbox
       #     "/blog/#{item.identifier.split("/", 3).last.gsub(/^(\d+)-(\d+)-(\d+)-(.*)$/, '\1/\2/\3/\4')}index.html"
       #   end
       # 
+      # And then you need to add your blog posts to ./posts/*.md (given you're using markdown.) They should
+      # be named in the format yyyy-mm-dd-slug-of-post.md and it'll automatically pick out the date & slug.
+      # 
       module Blogging
         GenerateError = Class.new(RuntimeError)
 
