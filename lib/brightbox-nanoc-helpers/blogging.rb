@@ -41,9 +41,9 @@ module Brightbox
           sorted_articles
         end
 
-        # Helper method for the config setting
+        # Helper method for the config setting, defaults to 10
         def posts_per_page
-          @config[:posts_per_page]
+          @config[:posts_per_page] || 10
         end
 
         # Infer the post's created_at time from the filename for the specified post
