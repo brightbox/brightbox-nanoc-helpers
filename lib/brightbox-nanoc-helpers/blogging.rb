@@ -181,7 +181,7 @@ module Brightbox
           post_pages.each_with_index do |subarticles, i|
             page_num = i + 1
 
-            @items << Nanoc3::Item.new(
+            @items << ::Nanoc3::Item.new(
               # @item.attributes is a bit of a hack, but it passes through whatever we pass as attributes
               # here to the blog_archive template, which is where we actually consume them.
               %{<%= render "blog_archive", @item.attributes %>},

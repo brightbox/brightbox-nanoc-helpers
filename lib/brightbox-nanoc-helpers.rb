@@ -3,7 +3,7 @@ require "brightbox-nanoc-helpers/version"
 module Brightbox
   module Nanoc3
     module Helpers
-      autoload :Blog, "brightbox-nanoc-helpers/blogging"
+      autoload :Blogging, "brightbox-nanoc-helpers/blogging"
       autoload :Pagination, "brightbox-nanoc-helpers/pagination"
     end
   end

@@ -20,7 +20,7 @@ module Brightbox
       #     type: static
       #     items_root: /static/
       # 
-      class StaticDatasource < Nanoc3::DataSource
+      class StaticDatasource < ::Nanoc3::DataSource
         identifier :static
 
         def items
@@ -41,7 +41,7 @@ module Brightbox
             mtime      = File.mtime(filename)
             checksum   = checksum_for(filename)
 
-            Nanoc3::Item.new(
+            ::Nanoc3::Item.new(
               filename,
               attributes,
               identifier,
