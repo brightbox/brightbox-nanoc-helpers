@@ -173,6 +173,10 @@ module Brightbox
           %{<a href="#{h base_uri}#{h slugify(name)}" rel="tag">#{h name}</a>}
         end
 
+        def excerptify item, read_more=/<!--\s*READMORE\s*-->/
+          item.compiled_content.dup.gsub(/#{read_more.source}.*\z/im, "")
+        end
+
         def slugify str
           str.downcase.gsub(/\s+/, "-").gsub(/-{2,}/, "-")
         end
