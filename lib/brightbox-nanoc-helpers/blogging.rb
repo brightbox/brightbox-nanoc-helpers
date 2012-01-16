@@ -31,7 +31,6 @@ module Brightbox
       module Blogging
         include ::Nanoc3::Helpers::Blogging
         include ::Nanoc3::Helpers::Rendering
-        include ::Nanoc3::Helpers::Blogging
 
         GenerateError = Class.new(RuntimeError)
 
