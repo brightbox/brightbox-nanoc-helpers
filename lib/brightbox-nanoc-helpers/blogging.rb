@@ -51,6 +51,12 @@ module Brightbox
           post.identifier[%r{/(\d+-\d+-\d+)[\w-]+/?$}, 1]
         end
 
+        # Takes in "hello-world", outputs "Hello World"
+        # Override by specifying "title: Hello World!" in the post's metadata
+        def extract_post_title post
+          post.identifier[%r{/(\d+-\d+-\d+)([\w-]+)/?$}, 2].split("-").map(&:capitalize).join(" ")
+        end
+
         # Override Blogging#articles to select items in /post, rather than of kind article.
         # Also makes sure the kind defaults to "article" and created_at defaults to being extracted
         # from the filename, rather than having to specify both in the metadata.
@@ -60,6 +66,7 @@ module Brightbox
           posts.each do |item|
             item[:kind] ||= "article"
             item[:created_at] ||= extract_post_created_at(item)
+            item[:title] ||= extract_post_title(item)
           end
           posts
         end
