@@ -29,6 +29,9 @@ module Brightbox
       # be named in the format yyyy-mm-dd-slug-of-post.md and it'll automatically pick out the date & slug.
       # 
       module Blogging
+        include ::Nanoc3::Helpers::Blogging
+        include ::Nanoc3::Helpers::Rendering
+
         GenerateError = Class.new(RuntimeError)
 
         # Make sure we include those modules we need to function
