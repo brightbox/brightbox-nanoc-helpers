@@ -47,6 +47,11 @@ module Brightbox
           @config[:posts_per_page] || 10
         end
 
+        # Helper method for the config setting, defaults to 10
+        def posts_per_feed
+          @config[:posts_per_feed] || 10
+        end
+
         # Infer the post's created_at time from the filename for the specified post
         def extract_post_created_at post
           post.identifier[%r{/(\d+-\d+-\d+)[\w-]+/?$}, 1]
@@ -122,6 +127,7 @@ module Brightbox
         def generate_blog_archive
           page_title = "Latest"
           paginate_posts_at "/blog/", posts, page_title
+          atom_feed_at "/blog/feed/", posts, page_title
         end
 
         # Generates /blog/:year/:month(/page/:i)/ pages, listing posts in each month on as many pages as needed
@@ -146,6 +152,7 @@ module Brightbox
           posts_by_authors.each do |author, author_posts|
             page_title = "Posts by #{author}"
             paginate_posts_at "/blog/author/#{slugify(author)}", author_posts, page_title
+            atom_feed_at "/blog/author/#{slugify(author)}/feed/", author_posts, page_title
           end
         end
 
@@ -157,6 +164,7 @@ module Brightbox
           all_post_tags.each do |tag|
             page_title = "Posts with tag \"#{tag}\""
             paginate_posts_at "/blog/tag/#{slugify(tag)}", posts_with_tag(tag), page_title
+            atom_feed_at "/blog/tag/#{slugify(tag)}/feed/", posts_with_tag(tag), page_title
           end
         end
 
@@ -214,6 +222,18 @@ module Brightbox
           end
         end
 
+        # Generate atom feed
+        # path and page_title are expected to be strings
+        def atom_feed_at path, posts, feed_title="Blog"
+          @items << ::Nanoc3::Item.new(
+            %{<%= atom_feed :title => @item[:title], :articles => @item[:posts], :limit => posts_per_feed %>},
+            {
+              :posts => posts,
+              :title => feed_title
+            },
+            path
+          )
+        end
       end
     end
   end
