@@ -214,6 +214,7 @@ module Brightbox
                 :next_page => post_pages[page_num] != nil,
                 :pagination_path => path,
                 :posts => subarticles,
+                :feed_uri => (feed_path if feed == true)
               },
               # First page is at /blog, every page thereafter at /blog/page/:i
               (page_num == 1 ? path : "#{path}page/#{page_num}/")
