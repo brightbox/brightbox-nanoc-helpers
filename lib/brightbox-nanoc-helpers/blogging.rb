@@ -229,7 +229,7 @@ module Brightbox
             %{<%= atom_feed :title => @item[:title], :articles => @item[:posts], :limit => posts_per_feed %>},
             {
               :posts => posts,
-              :title => feed_title
+              :title => @config[:feed_title] ? "#{@config[:feed_title]} - #{feed_title}" : feed_title
             },
             path
           )
