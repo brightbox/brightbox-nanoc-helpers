@@ -126,8 +126,7 @@ module Brightbox
         # Generates /blog(/page/:i)/ pages, listing posts on as many pages as are needed
         def generate_blog_archive
           page_title = "Latest"
-          paginate_posts_at "/blog/", posts, page_title
-          atom_feed_at "/blog/feed/", posts, page_title
+          paginate_posts_at "/blog/", posts, page_title, true
         end
 
         # Generates /blog/:year/:month(/page/:i)/ pages, listing posts in each month on as many pages as needed
@@ -151,8 +150,7 @@ module Brightbox
 
           posts_by_authors.each do |author, author_posts|
             page_title = "Posts by #{author}"
-            paginate_posts_at "/blog/author/#{slugify(author)}", author_posts, page_title
-            atom_feed_at "/blog/author/#{slugify(author)}/feed/", author_posts, page_title
+            paginate_posts_at "/blog/author/#{slugify(author)}", author_posts, page_title, true
           end
         end
 
@@ -163,8 +161,7 @@ module Brightbox
         def generate_tag_archives
           all_post_tags.each do |tag|
             page_title = "Posts with tag \"#{tag}\""
-            paginate_posts_at "/blog/tag/#{slugify(tag)}", posts_with_tag(tag), page_title
-            atom_feed_at "/blog/tag/#{slugify(tag)}/feed/", posts_with_tag(tag), page_title
+            paginate_posts_at "/blog/tag/#{slugify(tag)}", posts_with_tag(tag), page_title, true
           end
         end
 
@@ -195,9 +192,11 @@ module Brightbox
 
         # path is expected to be a string
         # page_title can be a String or Lambda. Lambda takes one argument, current page number
-        def paginate_posts_at path, posts, page_title="Blog"
+        def paginate_posts_at path, posts, page_title="Blog", feed=false
           # Make sure path starts/ends with forward slash
           path = "/#{path[%r{\A/?(.+?)/?\z}, 1]}/"
+          # Atom feed path
+          feed_path = "#{path}feed/"
           # Split the entire list of articles in a list of sub-lists
           post_pages = posts.each_slice(posts_per_page).to_a
 
@@ -220,11 +219,14 @@ module Brightbox
               (page_num == 1 ? path : "#{path}page/#{page_num}/")
             )
           end
+
+          # Generate atom feed if requested
+          atom_feed_at feed_path, posts, page_title if feed == true
         end
 
-        # Generate atom feed
+        # Generate atom feed at path
         # path and page_title are expected to be strings
-        def atom_feed_at path, posts, feed_title="Blog"
+        def atom_feed_at path, posts, feed_title="Blog Feed"
           @items << ::Nanoc3::Item.new(
             %{<%= atom_feed :title => @item[:title], :articles => @item[:posts], :limit => posts_per_feed %>},
             {
